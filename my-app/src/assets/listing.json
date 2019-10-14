@@ -5,8 +5,7 @@
         "contents": [
             {
                 "type": "file",
-                "name": "pom.xml",
-                "highlight": true
+                "name": "pom.xml"
             },
             {
                 "type": "directory",
