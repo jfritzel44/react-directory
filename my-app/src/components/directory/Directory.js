@@ -1,12 +1,8 @@
-import React, {Component} from 'react'
+import React from 'react';
 import styled from 'styled-components';
-import { faFile } from '@fortawesome/free-solid-svg-icons'
-import { faFolder } from '@fortawesome/free-solid-svg-icons'
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+import DirectoryRow from '../directory-row/DirectoryRow'; 
 
-const Highlight = styled.span`
-    background-color: red;
-    `
+import './Directory.css'
 
 const MarginWrapper = styled.div`
     margin-left: 20px;
@@ -15,21 +11,11 @@ const MarginWrapper = styled.div`
 class Directory extends React.Component {
     constructor(props) {
         super(props);
-    }
+        this.expand = this.expand.bind(this);
+        this.saveFile = this.saveFile.bind(this);
 
-    getType(level) {
-        if (level.type === 'file') {
-            return <FontAwesomeIcon icon={faFile}></FontAwesomeIcon>  
-        } else if (level.type === 'directory') {
-            return <FontAwesomeIcon icon={faFolder}></FontAwesomeIcon> 
-        }
-    }
-
-    getHighlight(level) {
-        if (level.highlight) {
-            return <Highlight>{level.name}</Highlight>
-        } else {
-            return level.name;
+        this.state = {
+            listing: this.props.listing
         }
     }
 
@@ -41,16 +27,39 @@ class Directory extends React.Component {
         return false;
     }
 
+    saveFile(row, fileName) {
+        
+        row.unshift({
+                "type": "file",
+                "name": fileName
+        })
+
+        this.setState({
+            listing: this.state.listing
+        })
+    }
+
+    expand(row) {
+        this.props.expand(row);
+    }
+
     render() {
-        return <MarginWrapper>
-           {this.props.listing.map((level) => {
-               return <div>
-                    {this.getType(level)} {this.getHighlight(level)}      
-                    {this.hasContent(level) && <Directory listing={level.contents}></Directory>}
+        return <MarginWrapper> 
+           {this.props.listing.map((row) => {
+               if (!row.expand) {
+                return <div>
+                    <DirectoryRow saveFile={this.saveFile} expand={this.expand} row={row}></DirectoryRow>
+                    {this.hasContent(row) && <Directory expand={this.expand} listing={row.contents}></Directory>}
                 </div>
-            })}
+               } {
+                return <DirectoryRow color="gray" expand={this.expand} row={row}></DirectoryRow>
+               }
+            })
+            }
         </MarginWrapper>
     }    
 }
 
 export default Directory
+
+

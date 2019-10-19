@@ -1,0 +1,17 @@
+.add-file-button {
+    border: 1px solid gray;
+    border-radius: 30px;
+    padding: 5px;
+    margin-left: 2px;
+}
+
+.add-file-input {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    margin-left: 20px;
+}
+
+.add-file-input:hover {
+    font-weight: bold;
+}

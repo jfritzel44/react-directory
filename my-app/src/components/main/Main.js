@@ -1,8 +1,7 @@
 import React, {Component} from 'react'
 import './Main.css'
 import listing from '../../assets/listing.json';
-import Directory from '../../components/directory/Directory';
-import Search from '../../components/search/Search';
+import DirectoryContainer from '../directory-container/DirectoryContainer';
 
 class Main extends React.Component {
     constructor(props) {
@@ -12,7 +11,9 @@ class Main extends React.Component {
     render() {
         return (
             <div className="container">
-              <div className="ml-20 mt-30"><Search listing = {listing}></Search></div>
+              <div className="ml-20 mt-30">
+                <DirectoryContainer listing = {listing}></DirectoryContainer>
+              </div>
             </div>
           );
     }
