@@ -1,0 +1,9 @@
+.add-file-prompt {
+    color: gray;
+    font-size: 13px;
+    margin-left: 20px;
+}
+
+.add-file-prompt:hover {
+    font-weight: bold;
+}

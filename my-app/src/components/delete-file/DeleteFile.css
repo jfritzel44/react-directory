@@ -1,0 +1,9 @@
+.delete-file-prompt {
+    color: gray;
+    font-size: 15px;
+}
+
+.delete-file-prompt:hover {
+    font-weight: bold;
+    font-size: 16px;
+}

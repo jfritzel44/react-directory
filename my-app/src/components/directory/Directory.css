@@ -1,0 +1,11 @@
+.pointer {
+    cursor: pointer;
+}
+
+.gray {
+    color: rgb(196, 196, 196);
+}
+
+.border-left {
+    border-left: 1px solid gray;
+}

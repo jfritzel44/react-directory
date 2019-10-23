@@ -1,30 +1,28 @@
-import React, {Component} from 'react'
-import Directory from '../../components/directory/Directory';
-import listing from '../../assets/listing.json';
+import React from 'react';
 
 class Search extends React.Component {
     constructor(props) {
-      super(props);
+        super(props);
 
-      this.state = {
-        listing: listing
-      };
+        this.state = {
+            listing: this.props.listing,
+            step: ""
+        };
     }
-  
+
     render() {
-        return <div>
-            <div className="mb-30"> Search: <input onChange={evt => this.updateInputValue(evt)}/></div>
-            <Directory listing = {this.state.listing}></Directory>
+        return <div> 
+            Search: <input onChange={evt => this.updateInputValue(evt)}/>
         </div>
-    }
+    }    
 
     updateInputValue(evt) {
         this.search(evt.target.value);
+        this.props.refresh(this.state.listing);
     }
 
     search(searchText) {
         let listing = this.state.listing;
-        
         this.findFile(listing, searchText);
         
         this.setState({
@@ -32,24 +30,23 @@ class Search extends React.Component {
         })
     }
 
-    findFile(level, searchText) {
-        if (!level) {
+    findFile(row, searchText) {
+        if (!row) {
             return;
         }
 
-        for (var i = 0; i < level.length; i++) {
-            if (level[i].name === searchText) {
-                level[i].highlight = true;
+        for (var i = 0; i < row.length; i++) {
+            if (row[i].name === searchText) {
+                row[i].highlight = true;
             } else {
-                level[i].highlight = false;
+                row[i].highlight = false;
             }
 
-            if (level[i].contents) {
-                this.findFile(level[i].contents, searchText);
+            if (row[i].contents) {
+                this.findFile(row[i].contents, searchText);
             }
         }
     }
 }
 
-export default Search;
-
+export default Search
