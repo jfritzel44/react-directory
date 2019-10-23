@@ -12,9 +12,6 @@ class DirectoryTools extends React.Component {
             hoverEvent: null,
         }
     }
-
-
-
     render() {
         if (this.props.showTools) {
             return <div>

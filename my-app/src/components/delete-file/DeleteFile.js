@@ -5,9 +5,9 @@ import './DeleteFile.css'
 
 function DeleteFileButton(props) {
     return (
-        <div className="delete-file-prompt">
-            <FontAwesomeIcon icon={faTrash}></FontAwesomeIcon> Delete File
-        </div>
+        <span className="delete-file-prompt">
+            <FontAwesomeIcon icon={faTrash}></FontAwesomeIcon>
+        </span>
     )
 }
 
@@ -22,7 +22,7 @@ class DeleteFile extends React.Component {
 
     render() {
         if (this.props.row.type === 'file') {
-            return (<div> <DeleteFileButton isFile={this.props.row.type === 'file'}></DeleteFileButton></div>)
+            return (<DeleteFileButton></DeleteFileButton>)
         }
 
         return (null);

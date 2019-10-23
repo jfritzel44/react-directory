@@ -11,7 +11,7 @@ const MarginWrapper = styled.div`
 class Directory extends React.Component {
     constructor(props) {
         super(props);
-        this.expand = this.expand.bind(this);
+        this.clickRow = this.clickRow.bind(this);
         this.saveFile = this.saveFile.bind(this);
 
         this.state = {
@@ -28,7 +28,6 @@ class Directory extends React.Component {
     }
 
     saveFile(row, fileName) {
-        
         row.unshift({
                 "type": "file",
                 "name": fileName
@@ -39,8 +38,8 @@ class Directory extends React.Component {
         })
     }
 
-    expand(row) {
-        this.props.expand(row);
+    clickRow(row) {
+        this.props.clickRow(row);
     }
 
     render() {
@@ -48,11 +47,11 @@ class Directory extends React.Component {
            {this.props.listing.map((row) => {
                if (!row.expand) {
                 return <div>
-                    <DirectoryRow saveFile={this.saveFile} expand={this.expand} row={row}></DirectoryRow>
-                    {this.hasContent(row) && <Directory expand={this.expand} listing={row.contents}></Directory>}
+                    <DirectoryRow saveFile={this.saveFile} clickRow={this.clickRow} row={row}></DirectoryRow>
+                    {this.hasContent(row) && <Directory clickRow={this.clickRow} listing={row.contents}></Directory>}
                 </div>
                } {
-                return <DirectoryRow color="gray" expand={this.expand} row={row}></DirectoryRow>
+                return <DirectoryRow color="gray" clickRow={this.clickRow} row={row}></DirectoryRow>
                }
             })
             }

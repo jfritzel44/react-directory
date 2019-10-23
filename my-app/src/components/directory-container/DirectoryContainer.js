@@ -2,6 +2,7 @@ import React, {Component} from 'react'
 import Directory from '../directory/Directory';
 import Search from '../search/Search';
 import listing from '../../assets/listing.json';
+import { thisTypeAnnotation } from '@babel/types';
 
 class DirectoryContainer extends React.Component {
     constructor(props) {
@@ -10,11 +11,12 @@ class DirectoryContainer extends React.Component {
       let path = [];
 
       this.state = {
+        currSelected: null,
         listing: listing,
         path: path,
       };
 
-      this.expandRow = this.expandRow.bind(this);
+      this.clickRow = this.clickRow.bind(this);
       this.refresh = this.refresh.bind(this);
     }
   
@@ -26,7 +28,7 @@ class DirectoryContainer extends React.Component {
                         <button onClick={() => this.expandAll()} className="btn btn-info btn-sm ml-2">Expand All</button>
                     </div>
 
-                    <Directory listing = {this.state.listing} expand={this.expandRow}></Directory>
+                    <Directory listing = {this.state.listing} clickRow={this.clickRow}></Directory>
                 </div>
     }
 
@@ -58,7 +60,30 @@ class DirectoryContainer extends React.Component {
         }   
     }
 
-    expandRow(row) { 
+    setSelected(row) {
+        if (this.currSelected) {
+            this.currSelected.selected = false;
+            row.selected = true;
+        } else {
+            row.selected = true;
+        }
+        
+        this.currSelected = row;
+
+        this.setState({
+            listing: this.state.listing
+        })
+
+        console.log("listing now: ");
+        console.log(this.state.listing);
+    }
+
+
+    clickRow(row) { 
+        
+        this.setSelected(row);
+
+
         if (row.type === 'file') {
             return;
         }
@@ -70,8 +95,10 @@ class DirectoryContainer extends React.Component {
         }
 
         this.setState({
-            listing: listing
+            listing: this.state.listing
         })
+
+
     }
 }
 

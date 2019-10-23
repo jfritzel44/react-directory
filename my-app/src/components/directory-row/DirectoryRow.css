@@ -15,3 +15,12 @@
 .add-file-input:hover {
     font-weight: bold;
 }
+
+.directory-row:hover {
+    text-decoration: underline;
+}
+
+.selected {
+    background-color: #77c38f;
+    color: white;
+}

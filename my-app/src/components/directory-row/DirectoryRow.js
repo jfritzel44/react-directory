@@ -1,6 +1,6 @@
 import React from 'react';
 import styled from 'styled-components';
-import { faFile, faFolder } from '@fortawesome/free-solid-svg-icons';
+import { faFile, faFolder, faAngleRight, faAngleDown } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import DirectoryTools from '../directory-tools/DirectoryTools'; 
 import './DirectoryRow.css'
@@ -12,16 +12,17 @@ const Highlight = styled.span`
 class DirectoryRow extends React.Component {
     constructor(props) {
         super(props);
-        this.expand = this.expand.bind(this);
+        this.clickRow = this.clickRow.bind(this);
         this.saveFile = this.saveFile.bind(this);
 
         this.state = {
+            selected: '',
             showTools: false
         }
     }
 
-    expand(row) {
-        this.props.expand(row);
+    clickRow(row) {
+        this.props.clickRow(row);
     }
 
     getType(row) {
@@ -29,6 +30,16 @@ class DirectoryRow extends React.Component {
             return <FontAwesomeIcon icon={faFile}></FontAwesomeIcon>  
         } else if (row.type === 'directory') {
             return <FontAwesomeIcon icon={faFolder}></FontAwesomeIcon> 
+        }
+    }
+
+    getCarotIcon(row) {
+        if (row.type === 'file') 
+            return null;
+        else if (row.type === 'directory' && row.expand) {
+            return <FontAwesomeIcon icon={faAngleRight}></FontAwesomeIcon> 
+        } else if (row.type === 'directory' && !row.expand) {
+            return <FontAwesomeIcon icon={faAngleDown}></FontAwesomeIcon> 
         }
     }
 
@@ -42,7 +53,7 @@ class DirectoryRow extends React.Component {
 
     saveFile(fileName) {
         this.props.saveFile(this.props.row.contents, fileName);
-        this.hideDirectoryTools();
+        this.hideTools();
     }
 
     hideAddFileInput() {
@@ -77,12 +88,20 @@ class DirectoryRow extends React.Component {
         }) 
     }
 
+    getSelectedClass() {
+        if (this.props.row.selected) {
+            return 'selected';
+        }
+
+        return '';
+    }
+
     render() {
         return  <div onMouseEnter={() => this.showTools()} onMouseLeave={() => this.hideTools()} 
                     className={"pointer " + this.props.color}>
 
-                <div onClick={() => this.expand(this.props.row)}>
-                    {this.getType(this.props.row)} {this.getRowName(this.props.row)} 
+                <div className="directory-row" onClick={() => this.clickRow(this.props.row)}>
+                    {this.getCarotIcon(this.props.row)} <span className={this.getSelectedClass()}>{this.getRowName(this.props.row)}</span> 
                 </div>
 
                 <DirectoryTools showTools={this.state.showTools} row={this.props.row} saveFile={this.saveFile}></DirectoryTools>
