@@ -1,4 +1,6 @@
-![alt text](https://github.com/jfritzel44/react-directory/blob/master/my-app/src/assets/demo1.jpg =250x250)
+
+
+<img src="https://github.com/jfritzel44/react-directory/blob/master/my-app/src/assets/demo1.jpg" width="48">
 
 ## React-Directory is a simple react program that creates a file directory from a JSON file.
 
