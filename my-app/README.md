@@ -1,6 +1,6 @@
 
 
-<div style="display: flex; flex-direction: column">
+<div style="display: inline">
 
 <img src="https://github.com/jfritzel44/react-directory/blob/master/my-app/src/assets/demo1.jpg" width="50%">
 <img src="https://github.com/jfritzel44/react-directory/blob/master/my-app/src/assets/demo2.jpg" width="50%">
